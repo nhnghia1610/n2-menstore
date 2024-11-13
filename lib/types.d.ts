@@ -10,16 +10,17 @@ type ProductType = {
   title: string;
   description: string;
   media: [string];
-  category: string;
-  collections: [string];
+  categoryId: [string];
+  category: CategoryType;
+  collections: [CollectionType];
   tags: [string];
-  price: number;
-  cost: number;
   sizes: [string];
   colors: [string];
-  createdAt: string;
-  updatedAt: string;
-};
+  price: number;
+  expense: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 type UserDetailsType = {
   clerkId: string;
