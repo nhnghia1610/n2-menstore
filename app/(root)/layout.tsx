@@ -5,12 +5,15 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "../globals.css";
 import Navbar from "@/components/Navbar";
 import ToasterProvider from "@/lib/providers/ToasterProvider";
+import Footer from "@/components/layout/Footer";
+import { viVN } from '@clerk/localizations';
+import Wrapper from "@/components/layout/Wrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Borcelle Store",
-  description: "Borcelle Ecommerce Store",
+  title: "N2 Men Store",
+  description: "N2 Men Store page",
 };
 
 export default function RootLayout({
@@ -21,10 +24,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ClerkProvider>
+        <ClerkProvider localization={viVN}>
           <ToasterProvider />
-          <Navbar />
-          {children}
+          {/* Wrapper with flex to ensure footer stays at bottom */}
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow">
+              <Wrapper>
+                {children}
+              </Wrapper>
+            </main>
+            <Footer />
+          </div>
         </ClerkProvider>
       </body>
     </html>

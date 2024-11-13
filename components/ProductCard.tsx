@@ -2,35 +2,48 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import HeartFavorite from "./HeartFavorite";
 
 interface ProductCardProps {
   product: ProductType;
-  updateSignedInUser?: (updatedUser: UserType) => void;
+  updateSignedInUser?: (updatedUser: UserDetailsType) => void;
 }
 
 const ProductCard = ({ product, updateSignedInUser }: ProductCardProps ) => {
   return (
-    <Link
-      href={`/products/${product._id}`}
-      className="w-[220px] flex flex-col gap-2"
-    >
-      <Image
-        src={product.media[0]}
-        alt="product"
-        width={250}
-        height={300}
-        className="h-[250px] rounded-lg object-cover"
-      />
-      <div>
-        <p className="text-base-bold">{product.title}</p>
-        <p className="text-small-medium text-grey-2">{product.category}</p>
+    <div className="w-[280px] p-4 bg-white shadow-lg rounded-xl transition-transform duration-200 hover:scale-105">
+      <Link href={`/products/${product._id}`} className="flex flex-col gap-3">
+        {/* Image */}
+        <Image
+          src={product.media[0]}
+          alt="product"
+          width={280}
+          height={350}
+          className="h-[280px] rounded-lg object-cover"
+        />
+        
+        {/* Product Title and Category */}
+        <div>
+          <p className="text-lg font-semibold text-gray-800">{product.title}</p>
+          <p className="text-sm font-medium text-gray-500">{product.category}</p>
+        </div>
+      </Link>
+
+      {/* Price, Favorite, and Add to Cart */}
+      <div className="flex justify-between items-center mt-2">
+        <p className="text-xl font-bold text-gray-900">${product.price}</p>
+        
+        <div className="flex items-center gap-2">
+          <HeartFavorite product={product} updateSignedInUser={updateSignedInUser} />
+
+          {/* Add to Cart Button */}
+          <button className="flex items-center gap-1 bg-blue-600 text-white py-1 px-3 rounded-full text-sm font-semibold shadow hover:bg-blue-700 transition">
+            <FaShoppingCart className="text-base" /> Add to cart
+          </button>
+        </div>
       </div>
-      <div className="flex justify-between items-center">
-        <p className="text-body-bold">${product.price}</p>
-        <HeartFavorite product={product} updateSignedInUser={updateSignedInUser} />
-      </div>
-    </Link>
+    </div>
   );
 };
 

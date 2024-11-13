@@ -1,9 +1,8 @@
 "use client";
 
 import useCart from "@/lib/hooks/useCart";
-
 import { UserButton, useUser } from "@clerk/nextjs";
-import { CircleUserRound, Menu, Search, ShoppingCart } from "lucide-react";
+import { CircleUserRound, Menu, Search, ShoppingCart, Heart, Home, ClipboardList } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -19,90 +18,102 @@ const Navbar = () => {
   const [query, setQuery] = useState("");
 
   return (
-    <div className="sticky top-0 z-10 py-2 px-10 flex gap-2 justify-between items-center bg-white max-sm:px-2">
+    <div className="sticky top-0 z-20 py-3 px-10 flex gap-4 justify-between items-center bg-[#1F2937] text-gray-300 shadow-xl max-sm:px-4">
       <Link href="/">
         <Image src="/logo.png" alt="logo" width={130} height={100} />
       </Link>
 
-      <div className="flex gap-4 text-base-bold max-lg:hidden">
+      {/* Main Navigation Links */}
+      <div className="flex gap-6 items-center text-body-medium max-lg:hidden">
         <Link
           href="/"
-          className={`hover:text-red-1 ${
-            pathname === "/" && "text-red-1"
+          className={`flex items-center gap-2 hover:text-white transition-colors ${
+            pathname === "/" ? "text-[#FDAB04]" : "text-gray-300"
           }`}
         >
-          Home
+          <Home className="w-5 h-5" />
+          Trang chủ
         </Link>
         <Link
           href={user ? "/wishlist" : "/sign-in"}
-          className={`hover:text-red-1 ${
-            pathname === "/wishlist" && "text-red-1"
+          className={`flex items-center gap-2 hover:text-white transition-colors ${
+            pathname === "/wishlist" ? "text-[#FDAB04]" : "text-gray-300"
           }`}
         >
-          Wishlist
+          <Heart className="w-5 h-5" />
+          Yêu thích
         </Link>
         <Link
           href={user ? "/orders" : "/sign-in"}
-          className={`hover:text-red-1 ${
-            pathname === "/orders" && "text-red-1"
+          className={`flex items-center gap-2 hover:text-white transition-colors ${
+            pathname === "/orders" ? "text-[#FDAB04]" : "text-gray-300"
           }`}
         >
-          Orders
+          <ClipboardList className="w-5 h-5" />
+          Đơn hàng
         </Link>
       </div>
 
-      <div className="flex gap-3 border border-grey-2 px-3 py-1 items-center rounded-lg">
+      {/* Search Bar */}
+      <div className="flex gap-2 items-center px-3 py-1 border border-gray-600 rounded-lg bg-white">
         <input
-          className="outline-none max-sm:max-w-[120px]"
-          placeholder="Search..."
+          className="w-full bg-transparent outline-none text-gray-300 placeholder-gray-500"
+          placeholder="Tìm sản phẩm"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
         <button
           disabled={query === ""}
           onClick={() => router.push(`/search/${query}`)}
+          className="text-gray-400 hover:text-[#FDAB04] transition-colors"
         >
-          <Search className="cursor-pointer h-4 w-4 hover:text-red-1" />
+          <Search className="w-5 h-5" />
         </button>
       </div>
 
-      <div className="relative flex gap-3 items-center">
+      {/* User and Cart Section */}
+      <div className="relative flex gap-4 items-center">
         <Link
           href="/cart"
-          className="flex items-center gap-3 border rounded-lg px-2 py-1 hover:bg-black hover:text-white max-md:hidden"
+          className="flex items-center gap-2 border border-gray-600 px-3 py-1 rounded-lg hover:bg-[#FDAB04] hover:text-gray-900 transition-colors max-md:hidden"
         >
           <ShoppingCart />
-          <p className="text-base-bold">Cart ({cart.cartItems.length})</p>
+          <p>Giỏ hàng ({cart.cartItems.length})</p>
         </Link>
 
+        {/* Mobile Menu Icon */}
         <Menu
-          className="cursor-pointer lg:hidden"
+          className="cursor-pointer lg:hidden text-gray-400 hover:text-[#FDAB04] transition-colors"
           onClick={() => setDropdownMenu(!dropdownMenu)}
         />
 
+        {/* Dropdown Menu for Mobile */}
         {dropdownMenu && (
-          <div className="absolute top-12 right-5 flex flex-col gap-4 p-3 rounded-lg border bg-white text-base-bold lg:hidden">
-            <Link href="/" className="hover:text-red-1">
-              Home
+          <div className="absolute top-12 right-5 flex flex-col gap-4 p-3 rounded-lg border border-gray-600 bg-[#1F2937] shadow-lg text-gray-300 lg:hidden">
+            <Link href="/" className="flex items-center gap-2 hover:text-[#FDAB04]">
+              <Home className="w-5 h-5" />
+              Trang chủ
             </Link>
             <Link
               href={user ? "/wishlist" : "/sign-in"}
-              className="hover:text-red-1"
+              className="flex items-center gap-2 hover:text-[#FDAB04]"
             >
-              Wishlist
+              <Heart className="w-5 h-5" />
+              Yêu thích
             </Link>
             <Link
               href={user ? "/orders" : "/sign-in"}
-              className="hover:text-red-1"
+              className="flex items-center gap-2 hover:text-[#FDAB04]"
             >
-              Orders
+              <ClipboardList className="w-5 h-5" />
+              Đơn hàng
             </Link>
             <Link
               href="/cart"
-              className="flex items-center gap-3 border rounded-lg px-2 py-1 hover:bg-black hover:text-white"
+              className="flex items-center gap-2 border border-gray-600 px-2 py-1 rounded-lg hover:bg-[#FDAB04] hover:text-gray-900"
             >
               <ShoppingCart />
-              <p className="text-base-bold">Cart ({cart.cartItems.length})</p>
+              <p>Giỏ hàng ({cart.cartItems.length})</p>
             </Link>
           </div>
         )}
@@ -110,8 +121,8 @@ const Navbar = () => {
         {user ? (
           <UserButton afterSignOutUrl="/sign-in" />
         ) : (
-          <Link href="/sign-in">
-            <CircleUserRound />
+          <Link href="/sign-in" className="hover:text-[#FDAB04] transition-colors">
+            <CircleUserRound className="w-6 h-6" />
           </Link>
         )}
       </div>

@@ -21,7 +21,7 @@ type ProductType = {
   updatedAt: string;
 };
 
-type UserType = {
+type UserDetailsType = {
   clerkId: string;
   wishlist: [string];
   createdAt: string;

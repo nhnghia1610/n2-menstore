@@ -1,4 +1,4 @@
-import User from "@/lib/models/User";
+import UserDetails from "@/lib/models/UserDetails";
 import { connectToDB } from "@/lib/mongoDB";
 
 import { auth } from "@clerk/nextjs";
@@ -15,7 +15,7 @@ export const POST = async (req: NextRequest) => {
 
     await connectToDB()
 
-    const user = await User.findOne({ clerkId: userId })
+    const user = await UserDetails.findOne({ clerkId: userId })
 
     if (!user) {
       return new NextResponse("User not found", { status: 404 })

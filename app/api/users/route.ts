@@ -1,4 +1,4 @@
-import User from "@/lib/models/User";
+import UserDetails from "@/lib/models/UserDetails";
 import { connectToDB } from "@/lib/mongoDB";
 import { auth } from "@clerk/nextjs";
 
@@ -14,11 +14,11 @@ export const GET = async (req: NextRequest) => {
 
     await connectToDB()
 
-    let user = await User.findOne({ clerkId: userId })
+    let user = await UserDetails.findOne({ clerkId: userId })
 
     // When the user sign-in for the 1st, immediately we will create a new user for them
     if (!user) {
-      user = await User.create({ clerkId: userId })
+      user = await UserDetails.create({ clerkId: userId })
       await user.save()
     }
 

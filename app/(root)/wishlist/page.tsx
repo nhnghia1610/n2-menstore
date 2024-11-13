@@ -10,13 +10,14 @@ const Wishlist = () => {
   const { user } = useUser()
 
   const [loading, setLoading] = useState(true)
-  const [signedInUser, setSignedInUser] = useState<UserType | null>(null)
+  const [signedInUser, setSignedInUser] = useState<UserDetailsType | null>(null)
   const [wishlist, setWishlist] = useState<ProductType[]>([])
 
   const getUser = async () => {
     try {
       const res = await fetch("/api/users")
       const data = await res.json()
+      console.log("data", data)
       setSignedInUser(data)
       setLoading(false)
     } catch (err) {
@@ -50,16 +51,16 @@ const Wishlist = () => {
     }
   }, [signedInUser])
 
-  const updateSignedInUser = (updatedUser: UserType) => {
+  const updateSignedInUser = (updatedUser: UserDetailsType) => {
     setSignedInUser(updatedUser)
   }
 
 
   return loading ? <Loader /> : (
     <div className="px-10 py-5">
-      <p className="text-heading3-bold my-10">Your Wishlist</p>
+      <p className="text-heading3-bold my-10">Sản phẩm yêu thích của bạn</p>
       {wishlist.length === 0 && (
-        <p>No items in your wishlist</p>
+        <p>Không có sản phẩm yêu thích</p>
       )}
 
       <div className="flex flex-wrap justify-center gap-16">

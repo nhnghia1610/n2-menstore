@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const userDetailsSchema = new mongoose.Schema({
   clerkId: String,
   wishlist: {
     type: Array,
@@ -16,6 +16,6 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const UserDetails = mongoose.models.UserDetails || mongoose.model("UserDetails", userDetailsSchema);
 
-export default User;
+export default UserDetails;

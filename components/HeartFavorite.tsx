@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 interface HeartFavoriteProps {
   product: ProductType;
-  updateSignedInUser?: (updatedUser: UserType) => void;
+  updateSignedInUser?: (updatedUser: UserDetailsType) => void;
 }
 
 const HeartFavorite = ({ product, updateSignedInUser }: HeartFavoriteProps) => {
