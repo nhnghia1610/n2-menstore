@@ -2,7 +2,7 @@
 
 import useCart from "@/lib/hooks/useCart";
 import { UserButton, useUser } from "@clerk/nextjs";
-import { CircleUserRound, Menu, Search, ShoppingCart, Heart, Home, ClipboardList } from "lucide-react";
+import { CircleUserRound, Menu, Search, ShoppingCart, Heart, Home, ClipboardList, Shirt } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -35,6 +35,15 @@ const Navbar = () => {
           Trang chủ
         </Link>
         <Link
+          href="/products"
+          className={`flex items-center gap-2 hover:text-white transition-colors ${
+            pathname === "/products" ? "text-[#FDAB04]" : "text-gray-300"
+          }`}
+        >
+          <Shirt className="w-5 h-5" />
+          Sản phẩm
+        </Link>
+        <Link
           href={user ? "/wishlist" : "/sign-in"}
           className={`flex items-center gap-2 hover:text-white transition-colors ${
             pathname === "/wishlist" ? "text-[#FDAB04]" : "text-gray-300"
@@ -54,7 +63,6 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Search Bar */}
       <div className="flex gap-2 items-center px-3 py-1 border border-gray-600 rounded-lg bg-white">
         <input
           className="w-full bg-transparent outline-none text-gray-300 placeholder-gray-500"
@@ -71,7 +79,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* User and Cart Section */}
+
       <div className="relative flex gap-4 items-center">
         <Link
           href="/cart"
@@ -81,7 +89,6 @@ const Navbar = () => {
           <p>Giỏ hàng ({cart.cartItems.length})</p>
         </Link>
 
-        {/* Mobile Menu Icon */}
         <Menu
           className="cursor-pointer lg:hidden text-gray-400 hover:text-[#FDAB04] transition-colors"
           onClick={() => setDropdownMenu(!dropdownMenu)}
@@ -93,6 +100,10 @@ const Navbar = () => {
             <Link href="/" className="flex items-center gap-2 hover:text-[#FDAB04]">
               <Home className="w-5 h-5" />
               Trang chủ
+            </Link>
+            <Link href="/products" className="flex items-center gap-2 hover:text-[#FDAB04]">
+              <Home className="w-5 h-5" />
+              Sản phẩm
             </Link>
             <Link
               href={user ? "/wishlist" : "/sign-in"}

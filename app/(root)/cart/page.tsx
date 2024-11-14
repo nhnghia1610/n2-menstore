@@ -106,7 +106,7 @@ const Cart = () => {
         </p>
         <div className="flex justify-between text-body-semibold">
           <span>Tổng tiền</span>
-          <span>$ {total}</span>
+          <span>{total} VND</span>
         </div>
         <button
           className="border rounded-lg text-body-bold bg-white py-3 w-full hover:bg-black hover:text-white"
