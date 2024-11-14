@@ -4,11 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import HeartFavorite from "./HeartFavorite";
+import useCart from "@/lib/hooks/useCart";
 
 interface ProductCardProps {
   product: ProductType;
   updateSignedInUser?: (updatedUser: UserDetailsType) => void;
 }
+
 
 const ProductCard = ({ product, updateSignedInUser }: ProductCardProps) => {
   return (
@@ -36,10 +38,7 @@ const ProductCard = ({ product, updateSignedInUser }: ProductCardProps) => {
         <div className="flex items-center gap-3">
           <HeartFavorite product={product} updateSignedInUser={updateSignedInUser} />
 
-          <button className="flex items-center gap-1 bg-[#1F2937] text-white py-2 px-4 rounded-lg text-sm font-semibold shadow-md hover:bg-blue-700 transition-all duration-200">
-            <FaShoppingCart className="text-base" />
-            <span>Thêm giỏ hàng</span>
-          </button>
+          
         </div>
       </div>
     </div>
