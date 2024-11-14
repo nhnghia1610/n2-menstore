@@ -10,32 +10,35 @@ interface ProductCardProps {
   updateSignedInUser?: (updatedUser: UserDetailsType) => void;
 }
 
-const ProductCard = ({ product, updateSignedInUser }: ProductCardProps ) => {
+const ProductCard = ({ product, updateSignedInUser }: ProductCardProps) => {
   return (
-    <div className="w-[280px] p-4 bg-white shadow-lg rounded-xl transition-transform duration-200 hover:scale-105">
+    <div className="w-[350px] p-4 bg-white shadow-lg rounded-xl transition-transform duration-300 hover:scale-105 hover:shadow-xl">
       <Link href={`/products/${product._id}`} className="flex flex-col gap-3">
-        <Image
-          src={product.media[0]}
-          alt="product"
-          width={280}
-          height={350}
-          className="h-[280px] rounded-lg object-cover"
-        />
-        
-        <div>
-          <p className="text-lg font-semibold text-gray-800">{product.title}</p>
-          <p className="text-sm font-medium text-gray-500">{product.category.title}</p>
+        <div className="relative w-full h-[280px]">
+          <Image
+            src={product.media[0]}
+            alt={product.title}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-lg"
+          />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <p className="text-lg font-semibold text-gray-800 truncate">{product.title}</p>
+          <p className="text-sm text-gray-500">{product.category.title}</p>
         </div>
       </Link>
 
-      <div className="flex justify-between items-center mt-2">
-        <p className="text-xl font-bold text-gray-900">${product.price}</p>
-        
-        <div className="flex items-center gap-2">
+      <div className="flex justify-between items-center mt-3">
+        <p className="text-xl font-bold text-gray-900">{product.price} VND</p>
+
+        <div className="flex items-center gap-3">
           <HeartFavorite product={product} updateSignedInUser={updateSignedInUser} />
 
-          <button className="flex items-center gap-1 bg-blue-600 text-white py-1 px-3 rounded-full text-sm font-semibold shadow hover:bg-blue-700 transition">
-            <FaShoppingCart className="text-base" /> Thêm vào giỏ hàng
+          <button className="flex items-center gap-1 bg-[#1F2937] text-white py-2 px-4 rounded-lg text-sm font-semibold shadow-md hover:bg-blue-700 transition-all duration-200">
+            <FaShoppingCart className="text-base" />
+            <span>Thêm giỏ hàng</span>
           </button>
         </div>
       </div>

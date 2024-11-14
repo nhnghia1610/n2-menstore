@@ -65,7 +65,7 @@ const Navbar = () => {
 
       <div className="flex gap-2 items-center px-3 py-1 border border-gray-600 rounded-lg bg-white">
         <input
-          className="w-full bg-transparent outline-none text-gray-300 placeholder-gray-500"
+          className="w-full bg-transparent outline-none text-black placeholder-gray-500"
           placeholder="Tìm sản phẩm"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
